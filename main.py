@@ -25,17 +25,15 @@ BOT_SNOWFLAKE = os.getenv('BOT_SNOWFLAKE')
 log_channel = int(LOG_CHANNEL)
 bot_snowflake = int(BOT_SNOWFLAKE)
 slownik = {}
-
 who_joined = None
 
 @client.event
 async def on_member_join(member):
-    global verification_message, embed_send, who_joined
+    global embed_send, who_joined
+
     who_joined = member
 
     channel = client.get_channel(log_channel)
-
-    author = member
 
     pfp = member.avatar_url_as(size=32)
 
@@ -44,15 +42,19 @@ async def on_member_join(member):
     embed.set_footer(text=f'{member.id}', icon_url=pfp)
     embed.add_field(name='User verification pending', value=f'Account created at: `{str(member.created_at)[:-7]}`', inline=False)
     embed.timestamp = datetime.datetime.utcnow()
-    verification_message = await channel.send(embed=embed)
 
-    embed_send = verification_message
+    embed_send = await channel.send(embed=embed)
 
-    slownik[verification_message.id] = member
 
-    await verification_message.add_reaction('✅')
-    await verification_message.add_reaction('❌')
+    slownik[embed_send.id] = member
 
+    await embed_send.add_reaction('✅')
+    await embed_send.add_reaction('❌')
+
+
+def remove_reaction(reaction, user):
+    reaction.message.remove_reaction('✅', user.guild.get_member(bot_snowflake))
+    reaction.message.remove_reaction('❌', user.guild.get_member(bot_snowflake))
 
 @client.event
 async def on_reaction_add(reaction, user):
@@ -60,72 +62,43 @@ async def on_reaction_add(reaction, user):
     pfp = who_joined.avatar_url_as(size=32)
 
     if str(reaction.emoji) == '✅' and user.id != bot_snowflake:
+
         var = discord.utils.get(user.guild.roles, name = "kumpel")
         await slownik[reaction.message.id].add_roles(var)
+
         await reaction.message.remove_reaction('✅', user)
-        await reaction.message.remove_reaction('✅', user.guild.get_member(bot_snowflake))
-        await reaction.message.remove_reaction('❌', user.guild.get_member(bot_snowflake))
+
+        await remove_reaction(reaction, user)
+
         embed_verified=discord.Embed(description = f'{who_joined.mention} {who_joined}', color=0x66ff33)
         embed_verified.set_author(icon_url=pfp, name = 'Member Joined')
         embed_verified.set_footer(text=f'{user.id}', icon_url=pfp)
         embed_verified.add_field(name=f'Verified by: {user}', value=f'Account created at: `{str(who_joined.created_at)[:-7]}`', inline=False)
         embed_verified.timestamp = datetime.datetime.utcnow()
+
         await embed_send.edit(embed=embed_verified)
 
+
     if str(reaction.emoji) == '❌' and user.id != bot_snowflake:
+
         await user.guild.kick(slownik[reaction.message.id])
+
         await reaction.message.remove_reaction('❌', user)
-        await reaction.message.remove_reaction('✅', user.guild.get_member(bot_snowflake))
-        await reaction.message.remove_reaction('❌', user.guild.get_member(bot_snowflake))
+
+        await remove_reaction(reaction, user)
+
         embed_kicked=discord.Embed(description = f'{who_joined.mention} {who_joined}', color=0xff0000)
         embed_kicked.set_author(icon_url=pfp, name = 'Member Joined')
         embed_kicked.set_footer(text=f'{who_joined.id}', icon_url=pfp)
         embed_kicked.add_field(name=f'Kicked by: {user}', value=f'Account created at: `{str(who_joined.created_at)[:-7]}`', inline=False)
         embed_kicked.timestamp = datetime.datetime.utcnow()
+
         await embed_send.edit(embed=embed_kicked)
+
 
 @client.event
 async def on_member_remove(member):
     channel = client.get_channel(log_channel)
     await channel.send(f'{member} spierdolił z serwera')
-
-@client.command()
-async def test(ctx):
-
-    #pending
-    channel = client.get_channel(log_channel)
-    author = ctx.message.author
-    pfp = author.avatar_url_as(size=32) #getting user pfp
-    embed=discord.Embed(description = f'{ctx.author.mention} {ctx.author}', color=0xf28500)
-    embed.set_author(icon_url=pfp, name = 'Member Joined')
-    embed.set_footer(text=f'{ctx.author.id}', icon_url=pfp)
-    embed.add_field(name='User verification pending', value=f'Account created at: `{str(ctx.author.created_at)[:-7]}`', inline=False)
-    embed.timestamp = datetime.datetime.utcnow()
-    # await ctx.send(embed=embed)
-
-    #verified
-    channel = client.get_channel(log_channel)
-    author = ctx.message.author
-    pfp = author.avatar_url_as(size=32) #getting user pfp
-    embed=discord.Embed(description = f'{ctx.author.mention} {ctx.author}', color=0x66ff33)
-    embed.set_author(icon_url=pfp, name = 'Member Joined')
-    embed.set_footer(text=f'{ctx.author.id}', icon_url=pfp)
-    embed.add_field(name=f'Verified by: {ctx.author}', value=f'Account created at: `{str(ctx.author.created_at)[:-7]}`', inline=False)
-    embed.timestamp = datetime.datetime.utcnow()
-    # await ctx.send(embed=embed)
-
-    #kicked
-    channel = client.get_channel(log_channel)
-    author = ctx.message.author
-    pfp = author.avatar_url_as(size=32) #getting user pfp
-    embed_kicked=discord.Embed(description = f'{ctx.author.mention} {ctx.author}', color=0xff0000)
-    embed_kicked.set_author(icon_url=pfp, name = 'Member Joined')
-    embed_kicked.set_footer(text=f'{ctx.author.id}', icon_url=pfp)
-    embed_kicked.add_field(name=f'Kicked by: {ctx.author}', value=f'Account created at: `{str(ctx.author.created_at)[:-7]}`', inline=False)
-    embed_kicked.timestamp = datetime.datetime.utcnow()
-    embed_send = await ctx.send(embed=embed)
-    await embed_send.edit(embed=embed_kicked)
-
-#co kurwa
 
 client.run(TOKEN)

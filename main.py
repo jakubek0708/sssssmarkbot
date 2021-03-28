@@ -52,9 +52,7 @@ async def on_member_join(member):
     await embed_send.add_reaction('❌')
 
 
-def remove_reaction(reaction, user):
-    reaction.message.remove_reaction('✅', user.guild.get_member(bot_snowflake))
-    reaction.message.remove_reaction('❌', user.guild.get_member(bot_snowflake))
+
 
 @client.event
 async def on_reaction_add(reaction, user):
@@ -68,7 +66,8 @@ async def on_reaction_add(reaction, user):
 
         await reaction.message.remove_reaction('✅', user)
 
-        await remove_reaction(reaction, user)
+        await reaction.message.remove_reaction('✅', user.guild.get_member(bot_snowflake))
+        await reaction.message.remove_reaction('❌', user.guild.get_member(bot_snowflake))
 
         embed_verified=discord.Embed(description = f'{who_joined.mention} {who_joined}', color=0x66ff33)
         embed_verified.set_author(icon_url=pfp, name = 'Member Joined')
@@ -85,7 +84,8 @@ async def on_reaction_add(reaction, user):
 
         await reaction.message.remove_reaction('❌', user)
 
-        await remove_reaction(reaction, user)
+        await reaction.message.remove_reaction('✅', user.guild.get_member(bot_snowflake))
+        await reaction.message.remove_reaction('❌', user.guild.get_member(bot_snowflake))
 
         embed_kicked=discord.Embed(description = f'{who_joined.mention} {who_joined}', color=0xff0000)
         embed_kicked.set_author(icon_url=pfp, name = 'Member Joined')
@@ -99,6 +99,19 @@ async def on_reaction_add(reaction, user):
 @client.event
 async def on_member_remove(member):
     channel = client.get_channel(log_channel)
-    await channel.send(f'{member} spierdolił z serwera')
+    await user.guild.kick(slownik[reaction.message.id])
 
+    await reaction.message.remove_reaction('❌', user)
+
+    await reaction.message.remove_reaction('✅', user.guild.get_member(bot_snowflake))
+    await reaction.message.remove_reaction('❌', user.guild.get_member(bot_snowflake))
+
+    embed_kicked=discord.Embed(description = f'{who_joined.mention} {who_joined}', color=0xff0000)
+    embed_kicked.set_author(icon_url=pfp, name = 'Member Joined')
+    embed_kicked.set_footer(text=f'{who_joined.id}', icon_url=pfp)
+    embed_kicked.add_field(name=f'Kicked by: {user}', value=f'Account created at: `{str(who_joined.created_at)[:-7]}`', inline=False)
+    embed_kicked.timestamp = datetime.datetime.utcnow()
+
+    await embed_send.edit(embed=embed_kicked)
+    
 client.run(TOKEN)

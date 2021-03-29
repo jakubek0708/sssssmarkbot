@@ -8,7 +8,7 @@ import asyncio
 
 intents = discord.Intents.default()
 intents.members = True
-client = commands.Bot(command_prefix = ';', intents=intents)
+client = commands.Bot(command_prefix = ',', intents=intents)
 
 
 @client.event
@@ -99,19 +99,13 @@ async def on_reaction_add(reaction, user):
 @client.event
 async def on_member_remove(member):
     channel = client.get_channel(log_channel)
-    await user.guild.kick(slownik[reaction.message.id])
 
-    await reaction.message.remove_reaction('❌', user)
+    embed_left=discord.Embed(description = f'{who_joined.mention} {who_joined}', color=0xff0000)
+    embed_left.set_author(icon_url=pfp, name = 'Member Left')
+    embed_left.set_footer(text=f'{who_joined.id}', icon_url=pfp)
+    embed_left.add_field(name=f'Account created at: ', value=f'`{str(who_joined.created_at)[:-7]}`', inline=False)
+    embed_left.timestamp = datetime.datetime.utcnow()
 
-    await reaction.message.remove_reaction('✅', user.guild.get_member(bot_snowflake))
-    await reaction.message.remove_reaction('❌', user.guild.get_member(bot_snowflake))
+    await channel.send(embed=embed_left)
 
-    embed_kicked=discord.Embed(description = f'{who_joined.mention} {who_joined}', color=0xff0000)
-    embed_kicked.set_author(icon_url=pfp, name = 'Member Joined')
-    embed_kicked.set_footer(text=f'{who_joined.id}', icon_url=pfp)
-    embed_kicked.add_field(name=f'Kicked by: {user}', value=f'Account created at: `{str(who_joined.created_at)[:-7]}`', inline=False)
-    embed_kicked.timestamp = datetime.datetime.utcnow()
-
-    await embed_send.edit(embed=embed_kicked)
-    
 client.run(TOKEN)

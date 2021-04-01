@@ -155,8 +155,15 @@ async def on_member_remove(member):
     await channel.send(embed=embed_left)
 
 @client.command()
+async def players(ctx):
+    status = server.status()
+    await ctx.send(status.players.online)
+
+
+@client.command()
 async def fanfik(ctx):
     await ctx.send("chłopacy jaki fanfik o co chodzi")
+
 @client.command()
 async def echo(ctx, *, message):
     await ctx.message.delete()

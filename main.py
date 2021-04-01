@@ -2,6 +2,7 @@ import discord
 from discord.ext import *
 from discord.ext import commands
 import os
+from mcstatus import MinecraftServer
 from dotenv import load_dotenv
 import datetime
 import asyncio
@@ -9,6 +10,11 @@ import asyncio
 intents = discord.Intents.default()
 intents.members = True
 client = commands.Bot(command_prefix = ',', intents=intents)
+
+#minecraft server search
+server = MinecraftServer.lookup("smarkownia.ddns.net")
+
+
 
 # ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣤⣤⣤⣶⣦⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀
 # ⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⡿⠛⠉⠙⠛⠛⠛⠛⠻⢿⣿⣷⣤⡀⠀⠀⠀⠀⠀
@@ -47,7 +53,7 @@ client = commands.Bot(command_prefix = ',', intents=intents)
 # ░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░▒░░░█░
 # ░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░░░░█░
 # ░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░░░░█░░
-# YOU'VE BEEN TROLLED 
+# YOU'VE BEEN TROLLED
 
 @client.event
 async def on_ready():
@@ -149,7 +155,11 @@ async def on_member_remove(member):
     await channel.send(embed=embed_left)
 
 @client.command()
-async def test(ctx):
-    await ctx.send("kappa 123")
+async def fanfik(ctx):
+    await ctx.send("chłopacy jaki fanfik o co chodzi")
+@client.command()
+async def echo(ctx, *, message):
+    await ctx.message.delete()
+    await ctx.send(message)
 
 client.run(TOKEN)

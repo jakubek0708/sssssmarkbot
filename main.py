@@ -148,26 +148,26 @@ async def on_reaction_add(reaction, user):
 
         await embed_send.edit(embed=embed_kicked)
 
-    if str(reaction.emoji) in emoji_list and user.id != bot_snowflake and reaction.message.id in clicked:
-        channel = client.get_channel(test_channel)
-        if user not in clicked[reaction.message.id]:
-
-            print('clicked grape')
-            clicked[reaction.message.id].append(user)
-            what_reaction_clicked[user] = reaction
-        else:
-            print('clicked before')
-            await reaction.message.remove_reaction(reaction, user)
-
-    if self_vote_protection[reaction.message.id] == user.id and user.id != bot_snowflake and reaction.message.id in clicked:
-
-        await reaction.message.remove_reaction(reaction, user)
-
-@client.event
-async def on_reaction_remove(reaction, user):
-    print(user)
-    if str(reaction.emoji) in emoji_list and user.id != bot_snowflake and reaction.message.id in clicked and reaction == what_reaction_clicked[user]:
-        clicked[reaction.message.id].remove(user)
+#    if str(reaction.emoji) in emoji_list and user.id != bot_snowflake and reaction.message.id in clicked:
+#        channel = client.get_channel(test_channel)
+#        if user not in clicked[reaction.message.id]:
+#
+#            print('clicked grape')
+#            clicked[reaction.message.id].append(user)
+#            what_reaction_clicked[user] = reaction
+#        else:
+#            print('clicked before')
+#            await reaction.message.remove_reaction(reaction, user)
+#
+#    if self_vote_protection[reaction.message.id] == user.id and user.id != bot_snowflake and reaction.message.id in clicked:
+#
+#        await reaction.message.remove_reaction(reaction, user)
+#
+#@client.event
+#async def on_reaction_remove(reaction, user):
+#    print(user)
+#    if str(reaction.emoji) in emoji_list and user.id != bot_snowflake and reaction.message.id in clicked and reaction == what_reaction_clicked[user]:
+#        clicked[reaction.message.id].remove(user)
 
 
 @client.event
@@ -202,44 +202,44 @@ async def echo(ctx, *, message):
 clicked = {}
 self_vote_protection = {}
 
-@client.command()
-async def vote(ctx):
-    global clicked
-    name_list = {'Smark': 293079974787678209,
-    'Spki': 414932696285052938,
-    'Desu': 350331531472011285,
-    'Mesimov': 293400827295563778,
-    'Celled': 172108539144306698,
-    'Pondoryna': 804418160186753025,
-    'Heryin': 265085929809510402,
-    'Witt': 226646760515305473,
-    'Toxic': 390956680705474571,
-    'Tadziu': 282421992051703809,
-    'Catto': 172108539144306698,
-    'Aamon': 269843173218582548,
-    'Awawa': 307541751248453632,
-    'Zoomek': 292634117084807168,
-    'Iza': 681541408074629120,
-    'Rayz': 564133511632781353,
-    'Ravioli': 437320877114261515,
-    'Ojciec': 263784520900280332,
-    'Moneyigos': 294936820595163142,
-    'Czesio': 535464141620510721,
-    'Igoruwa': 390926589640179712,
-    'Jager': 730209739736350770,
-    'Haav': 386209774481571841,
-    'Zneix': 288028423031357441,
-    'Stalowy': 327402104446648331,
-    'Wiktor': 475969701969788938}
-
-    for message in name_list:
-        vote_message = await ctx.send(message)
-
-        self_vote_protection[vote_message.id] = name_list[message]
-
-        for i in emoji_list:
-            await vote_message.add_reaction(i)
-
-        clicked[vote_message.id] = []
+#@client.command()
+#async def vote(ctx):
+#    global clicked
+#    name_list = {'Smark': 293079974787678209,
+#    'Spki': 414932696285052938,
+#    'Desu': 350331531472011285,
+#    'Mesimov': 293400827295563778,
+#    'Celled': 172108539144306698,
+#    'Pondoryna': 804418160186753025,
+#    'Heryin': 265085929809510402,
+#    'Witt': 226646760515305473,
+#    'Toxic': 390956680705474571,
+#    'Tadziu': 282421992051703809,
+#    'Catto': 172108539144306698,
+#    'Aamon': 269843173218582548,
+#    'Awawa': 307541751248453632,
+#    'Zoomek': 292634117084807168,
+#    'Iza': 681541408074629120,
+#    'Rayz': 564133511632781353,
+#    'Ravioli': 437320877114261515,
+#    'Ojciec': 263784520900280332,
+#    'Moneyigos': 294936820595163142,
+#    'Czesio': 535464141620510721,
+#    'Igoruwa': 390926589640179712,
+#    'Jager': 730209739736350770,
+#    'Haav': 386209774481571841,
+#    'Zneix': 288028423031357441,
+#    'Stalowy': 327402104446648331,
+#    'Wiktor': 475969701969788938}
+#
+#    for message in name_list:
+#        vote_message = await ctx.send(message)
+#
+#        self_vote_protection[vote_message.id] = name_list[message]
+#
+#        for i in emoji_list:
+#            await vote_message.add_reaction(i)
+#
+#        clicked[vote_message.id] = []
 
 client.run(TOKEN)

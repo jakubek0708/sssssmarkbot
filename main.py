@@ -195,8 +195,7 @@ async def players(ctx):
             await ctx.send(f'Na serwerze jest: {players}')
     except:
         await ctx.send('Nie mogę się połączyć z serwerem xd')
-    except:
-        await ctx.send('server off')
+
 
 
 @client.command()

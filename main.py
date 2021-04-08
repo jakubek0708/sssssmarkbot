@@ -186,8 +186,9 @@ async def on_member_remove(member):
 
 @client.command()
 async def players(ctx):
-    query = server.query()
+
     try:
+        query = server.query()
         players = ", ".join(query.players.names)
         if []:
             await ctx.send('Nikogo nie ma')

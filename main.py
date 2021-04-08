@@ -187,7 +187,16 @@ async def on_member_remove(member):
 @client.command()
 async def players(ctx):
     query = server.query()
-    await ctx.send(f'Na serwerze jest: {", ".join(query.players.names)}')
+    try:
+        players = ", ".join(query.players.names)
+        if []:
+            await ctx.send('Nikogo nie ma')
+        else:
+            await ctx.send(f'Na serwerze jest: {players}')
+    except:
+        await ctx.send('Nie mogę się połączyć z serwerem xd')
+    except:
+        await ctx.send('server off')
 
 
 @client.command()

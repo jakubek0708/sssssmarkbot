@@ -190,7 +190,7 @@ async def players(ctx):
     try:
         query = server.query()
         players = ", ".join(query.players.names)
-        if []:
+        if players:
             await ctx.send('Nikogo nie ma')
         else:
             await ctx.send(f'Na serwerze jest: {players}')

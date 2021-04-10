@@ -9,5 +9,5 @@ class echo(commands.Cog):
         await ctx.message.delete()
         await ctx.send(message)
 
-def echo(client):
-    client.add_cog(test(client))
+def setup(client):
+    client.add_cog(echo(client))

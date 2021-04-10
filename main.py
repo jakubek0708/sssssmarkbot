@@ -251,6 +251,6 @@ self_vote_protection = {}
 #
 #        clicked[vote_message.id] = []
 
-client.load_extension("cogs.test")
+
 
 client.run(TOKEN)

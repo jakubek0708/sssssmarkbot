@@ -263,6 +263,6 @@ for filename in os.listdir('./cogs'):
 #
 #        clicked[vote_message.id] = []
 
-client.load_extension("cogs.test")
+
 
 client.run(TOKEN)

@@ -9,4 +9,4 @@ class test:
         await ctx.send("test failed damb")
 
 def setup(client):
-    client.add_cog(test(bot))
+    client.add_cog(test(client))

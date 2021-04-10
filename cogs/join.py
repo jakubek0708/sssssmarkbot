@@ -1,8 +1,16 @@
+import discord
 from discord.ext import commands
+import datetime
+
+slownik = {}
+who_joined = None
+send_verification_messages_ids = {}
+member_joined_dict = {}
 
 class join(commands.Cog):
     def __init__(self, client):
         self.client = client
+
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -10,7 +18,7 @@ class join(commands.Cog):
 
         who_joined = member
 
-        channel = self.client.get_channel(log_channel)
+        channel = self.client.get_channel(552215913055911946)
 
         pfp = member.avatar_url_as(size=32)
 
@@ -22,12 +30,16 @@ class join(commands.Cog):
 
         embed_send = await channel.send(embed=embed)
 
-        send_verification_messages_ids.append(embed_send.id)
+        send_verification_messages_ids[embed_send.id] = embed_send
+
+        member_joined_dict[embed_send.id] = who_joined
+
         slownik[embed_send.id] = member
 
         await embed_send.add_reaction('✅')
         await embed_send.add_reaction('❌')
 
+        print(send_verification_messages_ids)
 
 def setup(client):
     client.add_cog(join(client))

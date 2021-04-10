@@ -75,30 +75,6 @@ who_joined = None
 test_channel = 768015589444419588
 send_verification_messages_ids = []
 
-@client.event
-async def on_member_join(member):
-    global embed_send, who_joined
-
-    who_joined = member
-
-    channel = client.get_channel(log_channel)
-
-    pfp = member.avatar_url_as(size=32)
-
-    embed=discord.Embed(description = f'{member.mention} {member}', color=0xf28500)
-    embed.set_author(icon_url=pfp, name = 'Member Joined')
-    embed.set_footer(text=f'{member.id}', icon_url=pfp)
-    embed.add_field(name='User verification pending', value=f'Account created at: `{str(member.created_at)[:-7]}`', inline=False)
-    embed.timestamp = datetime.datetime.utcnow()
-
-    embed_send = await channel.send(embed=embed)
-
-    send_verification_messages_ids.append(embed_send.id)
-    slownik[embed_send.id] = member
-
-    await embed_send.add_reaction('✅')
-    await embed_send.add_reaction('❌')
-
 
 emoji_list = ['<:SS:827162978662875188>', '<:S_:827163027157286923>', '<:A_:827163066289487902>', '<:B_:827163087370715166>', '<:C_:827163109415452713>', '<:D_:827163128155602944>']
 
@@ -252,5 +228,6 @@ self_vote_protection = {}
 #        clicked[vote_message.id] = []
 
 client.load_extension("cogs.test")
+client.load_extension("cogs.join")
 
 client.run(TOKEN)

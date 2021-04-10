@@ -1,6 +1,6 @@
 from discord.ext import commands
 
-class test(commands.Cog):
+class echo(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -9,5 +9,5 @@ class test(commands.Cog):
         await ctx.message.delete()
         await ctx.send(message)
 
-def setup(client):
+def echo(client):
     client.add_cog(test(client))

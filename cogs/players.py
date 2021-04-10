@@ -9,7 +9,7 @@ SERVER_IP = os.getenv('SERVER_IP')
 
 server = MinecraftServer(SERVER_IP, PORT)
 
-class test(commands.Cog):
+class players(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -31,4 +31,4 @@ class test(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(test(client))
+    client.add_cog(players(client))

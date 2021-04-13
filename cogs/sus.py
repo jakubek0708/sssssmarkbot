@@ -7,8 +7,8 @@ class sus(commands.Cog): #that class is sussy
         self.client = client
 
     @commands.Cog.listener()
-    async def on_message(message):
-        if 'sus' in message.content:
+    async def on_message(self, message):
+        if 'sus' in message.content.lower():
             await message.add_reaction('<:trollcrazy:800421758099783710>')
 
 def setup(client):

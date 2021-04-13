@@ -12,9 +12,10 @@ class leave(commands.Cog):
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
-        from .join import send_verification_messages_ids, member_joined_dict, embed_send, slownik, who_joined
+
 
         if str(reaction.emoji) == '✅' and user.id != bot_snowflake and reaction.message.id in send_verification_messages_ids:
+            from .join import send_verification_messages_ids, member_joined_dict, embed_send, slownik, who_joined
 
             who_joined = member_joined_dict[reaction.message.id]
 
@@ -39,6 +40,7 @@ class leave(commands.Cog):
 
 
         if str(reaction.emoji) == '❌' and user.id != bot_snowflake and reaction.message.id in send_verification_messages_ids:
+            from .join import send_verification_messages_ids, member_joined_dict, embed_send, slownik, who_joined
 
             who_joined = member_joined_dict[reaction.message.id]
 

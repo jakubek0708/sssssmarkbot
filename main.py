@@ -11,12 +11,10 @@ intents = discord.Intents.default()
 intents.members = True
 client = commands.Bot(command_prefix = ',', intents=intents)
 
-#loading cogs
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
-#loading .env variables
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 

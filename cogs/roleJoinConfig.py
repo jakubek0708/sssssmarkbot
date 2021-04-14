@@ -18,6 +18,7 @@ class roleConfig(commands.Cog):
         self.client = client
 
     @commands.command()
+    @has_permissions(administrator=True)
     async def roleConfig(self, ctx, *, message):
         mycol = mydb[str(ctx.message.guild.id)] #collection
         content = message
@@ -29,8 +30,6 @@ class roleConfig(commands.Cog):
             await ctx.send(f'Zmieniłem rolę na `{content}`')
         except:
             await ctx.send('Nie mogę znaleźć roli, upewnij się, że dałeś jej nazwę (nie pinguj jej, po prostu nazwa)')
-
-
 
 def setup(client):
     client.add_cog(roleConfig(client))

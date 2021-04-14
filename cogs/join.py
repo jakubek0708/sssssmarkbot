@@ -1,6 +1,16 @@
 import discord
 from discord.ext import commands
 import datetime
+import pymongo
+from dotenv import load_dotenv
+
+load_dotenv()
+USERNAME = os.getenv('USERNAME')
+PASSWORD = os.getenv('PASSWORD')
+MONGO_PORT = int(os.getenv('MONGO_PORT'))
+
+myclient = pymongo.MongoClient(f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
+mydb = myclient['smarkbot']
 
 slownik = {}
 who_joined = None
@@ -14,32 +24,39 @@ class join(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        global embed_send, who_joined
 
-        who_joined = member
+        mycol = mydb[str(member.guild.id)]
 
-        channel = self.client.get_channel(552215913055911946)
+        document = mycol.find_one({'_id': member.guild.id})
 
-        pfp = member.avatar_url_as(size=32)
+        if document['membersJoinLeaveLogs']:
+            global embed_send, who_joined
 
-        embed=discord.Embed(description = f'{member.mention} {member}', color=0xf28500)
-        embed.set_author(icon_url=pfp, name = 'Member Joined')
-        embed.set_footer(text=f'{member.id}', icon_url=pfp)
-        embed.add_field(name='User verification pending', value=f'Account created at: `{str(member.created_at)[:-7]}`', inline=False)
-        embed.timestamp = datetime.datetime.utcnow()
+            log_channel = int(document['logsChannellID'])
 
-        embed_send = await channel.send(embed=embed)
+            who_joined = member
 
-        send_verification_messages_ids[embed_send.id] = embed_send
+            channel = self.client.get_channel(log_channel)
 
-        member_joined_dict[embed_send.id] = who_joined
+            pfp = member.avatar_url_as(size=32)
 
-        slownik[embed_send.id] = member
+            embed=discord.Embed(description = f'{member.mention} {member}', color=0xf28500)
+            embed.set_author(icon_url=pfp, name = 'Member Joined')
+            embed.set_footer(text=f'{member.id}', icon_url=pfp)
+            embed.add_field(name='User verification pending', value=f'Account created at: `{str(member.created_at)[:-7]}`', inline=False)
+            embed.timestamp = datetime.datetime.utcnow()
 
-        await embed_send.add_reaction('✅')
-        await embed_send.add_reaction('❌')
+            embed_send = await channel.send(embed=embed)
 
-        print(send_verification_messages_ids)
+            send_verification_messages_ids[embed_send.id] = embed_send
+
+            member_joined_dict[embed_send.id] = who_joined
+
+            slownik[embed_send.id] = member
+
+            await embed_send.add_reaction('✅')
+            await embed_send.add_reaction('❌')
+
 
 def setup(client):
     client.add_cog(join(client))

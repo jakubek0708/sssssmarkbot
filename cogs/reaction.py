@@ -1,6 +1,16 @@
 import discord
 from discord.ext import commands
 import datetime
+import pymongo
+from dotenv import load_dotenv
+
+load_dotenv()
+USERNAME = os.getenv('USERNAME')
+PASSWORD = os.getenv('PASSWORD')
+MONGO_PORT = int(os.getenv('MONGO_PORT'))
+
+myclient = pymongo.MongoClient(f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
+mydb = myclient['smarkbot']
 
 what_reaction_clicked = {}
 bot_snowflake = 822169790801641474
@@ -12,17 +22,20 @@ class leave(commands.Cog):
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
+        from .join import send_verification_messages_ids
 
+        mycol = mydb[str(member.guild.id)]
+
+        document = mycol.find_one({'_id': member.guild.id})
 
         if str(reaction.emoji) == '✅' and user.id != bot_snowflake and reaction.message.id in send_verification_messages_ids:
-            from .join import send_verification_messages_ids, member_joined_dict, embed_send, slownik, who_joined
+            from .join import member_joined_dict, embed_send, slownik, who_joined
 
             who_joined = member_joined_dict[reaction.message.id]
 
-            channel = self.client.get_channel(552215913055911946)
             pfp = who_joined.avatar_url_as(size=32)
 
-            var = discord.utils.get(user.guild.roles, name = "kumpel")
+            var = discord.utils.get(user.guild.roles, name = document['roleJoinID'])
             await slownik[reaction.message.id].add_roles(var)
 
             await reaction.message.remove_reaction('✅', user)
@@ -40,11 +53,10 @@ class leave(commands.Cog):
 
 
         if str(reaction.emoji) == '❌' and user.id != bot_snowflake and reaction.message.id in send_verification_messages_ids:
-            from .join import send_verification_messages_ids, member_joined_dict, embed_send, slownik, who_joined
+            from .join import member_joined_dict, embed_send, slownik, who_joined
 
             who_joined = member_joined_dict[reaction.message.id]
 
-            channel = self.client.get_channel(552215913055911946)
             pfp = who_joined.avatar_url_as(size=32)
 
             await user.guild.kick(slownik[reaction.message.id])

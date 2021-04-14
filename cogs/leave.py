@@ -1,6 +1,16 @@
 import discord
 from discord.ext import commands
 import datetime
+import pymongo
+from dotenv import load_dotenv
+
+load_dotenv()
+USERNAME = os.getenv('USERNAME')
+PASSWORD = os.getenv('PASSWORD')
+MONGO_PORT = int(os.getenv('MONGO_PORT'))
+
+myclient = pymongo.MongoClient(f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
+mydb = myclient['smarkbot']
 
 class leave(commands.Cog):
     def __init__(self, client):
@@ -9,8 +19,19 @@ class leave(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
+
+        mycol = mydb[str(member.guild.id)] #collection
+
+        document = mycol.find_one({'_id': member.guild.id})
+        print(document['logsChannellID'], type(document['logsChannellID']))
+
+        log_channel = int(document['logsChannellID'])
+
+        print(2, log_channel, type(log_channel))
         who_joined = member
-        channel = self.client.get_channel(552215913055911946)
+
+        channel = self.client.get_channel(log_channel)
+
         pfp = who_joined.avatar_url_as(size=32)
 
 

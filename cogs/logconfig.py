@@ -1,8 +1,15 @@
+import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 import pymongo
+from dotenv import load_dotenv
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017")
+load_dotenv()
+USERNAME = os.getenv('USERNAME')
+PASSWORD = os.getenv('PASSWORD')
+MONGO_PORT = int(os.getenv('MONGO_PORT'))
+
+myclient = pymongo.MongoClient(f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
 mydb = myclient['smarkbot']
 
 class logconfig(commands.Cog):
@@ -10,27 +17,34 @@ class logconfig(commands.Cog):
         self.client = client
 
     @commands.command()
-    async def logconfig(self, ctx):
-        mycol = mydb[ctx.message.guild.id] #collection
-
-        content = ctx.message.content
-
+    async def logconfig(self, ctx, *, message):
+        mycol = mydb[str(ctx.message.guild.id)] #collection
+        content = message
         document = mycol.find_one({'_id': ctx.message.guild.id})
 
+        try:
+            content = int(content)
+        except:
+            pass
+
         if type(content) == int:
-            if document['membersJoinLeaveLogs']:
-                mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'logsChannellID': content}})
-                await ctx.send(f'Ustawiono log channel jako: {content}')
-            else:
-                await ctx.send('Musisz na początku włączyć logi -> `logconfig on`')
+            mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'logsChannellID': content}})
+            await ctx.send(f'Ustawiono log channel jako: {content}')
 
         elif type(content) == str:
-            if content == 'on':
-                mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'membersJoinLeaveLogs': True}})
-                await ctx.send('Turned to: on')
-            elif content == 'off':
-                mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'membersJoinLeaveLogs': False}})
-                await ctx.send('Turned to: off')
+            if document['logsChannellID'] != None:
+                if content == 'on':
+                    mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'membersJoinLeaveLogs': True}})
+                    await ctx.send('Turned to: `on`')
+                elif content == 'off':
+                    mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'membersJoinLeaveLogs': False}})
+                    await ctx.send('Turned to: `off`')
+                else:
+                    await ctx.send('Dostępne tylko: `on` i `off`')
+            else:
+                await ctx.send('Musisz na początku określić na jakim kanale mają się pojawiać logi -> `logconfig id kanału`')
+        else:
+            await ctx.send('Error, pajton exploded')
 
 def setup(client):
     client.add_cog(logconfig(client))

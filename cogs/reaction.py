@@ -7,8 +7,8 @@ import os
 load_dotenv()
 USERNAME = os.getenv('USERNAME')
 PASSWORD = os.getenv('PASSWORD')
-MONGO_PORT = int(os.getenv('MONGO_PORT'))
-
+MONGO_PORT = os.getenv('MONGO_PORT')
+MONGO_PORT = int(MONGO_PORT)
 myclient = pymongo.MongoClient(f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
 mydb = myclient['smarkbot']
 

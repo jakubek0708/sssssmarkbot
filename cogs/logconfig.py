@@ -18,33 +18,36 @@ class logconfig(commands.Cog):
 
     @commands.command()
     async def logconfig(self, ctx, *, message):
-        mycol = mydb[str(ctx.message.guild.id)] #collection
-        content = message
-        document = mycol.find_one({'_id': ctx.message.guild.id})
+        if ctx.message.author.server_permissions.administrator:
+            mycol = mydb[str(ctx.message.guild.id)] #collection
+            content = message
+            document = mycol.find_one({'_id': ctx.message.guild.id})
 
-        try:
-            content = int(content)
-        except:
-            pass
+            try:
+                content = int(content)
+            except:
+                pass
 
-        if type(content) == int:
-            mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'logsChannellID': content}})
-            await ctx.send(f'Ustawiono log channel jako: {content}')
+            if type(content) == int:
+                mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'logsChannellID': content}})
+                await ctx.send(f'Ustawiono log channel jako: {content}')
 
-        elif type(content) == str:
-            if document['logsChannellID'] != None:
-                if content == 'on':
-                    mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'membersJoinLeaveLogs': True}})
-                    await ctx.send('Turned to: `on`')
-                elif content == 'off':
-                    mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'membersJoinLeaveLogs': False}})
-                    await ctx.send('Turned to: `off`')
+            elif type(content) == str:
+                if document['logsChannellID'] != None:
+                    if content == 'on':
+                        mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'membersJoinLeaveLogs': True}})
+                        await ctx.send('Turned to: `on`')
+                    elif content == 'off':
+                        mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'membersJoinLeaveLogs': False}})
+                        await ctx.send('Turned to: `off`')
+                    else:
+                        await ctx.send('Dostępne tylko: `on` i `off`')
                 else:
-                    await ctx.send('Dostępne tylko: `on` i `off`')
+                    await ctx.send('Musisz na początku określić na jakim kanale mają się pojawiać logi -> `logconfig id kanału`')
             else:
-                await ctx.send('Musisz na początku określić na jakim kanale mają się pojawiać logi -> `logconfig id kanału`')
+                await ctx.send('Error, pajton exploded')
         else:
-            await ctx.send('Error, pajton exploded')
+            await ctx.send('Nie masz uprawnień debku')
 
 def setup(client):
     client.add_cog(logconfig(client))

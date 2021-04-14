@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands import has_permissions
 from dotenv import load_dotenv
 import pymongo
 from dotenv import load_dotenv

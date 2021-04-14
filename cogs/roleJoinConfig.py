@@ -3,7 +3,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import pymongo
 import os
-
+from discord.ext.commands import has_permissions
 load_dotenv()
 USERNAME = os.getenv('USERNAME')
 PASSWORD = os.getenv('PASSWORD')

@@ -24,6 +24,8 @@ class leave(commands.Cog):
     async def on_reaction_add(self, reaction, user):
         from .join import send_verification_messages_ids
 
+        member = user
+        
         mycol = mydb[str(member.guild.id)]
 
         document = mycol.find_one({'_id': member.guild.id})

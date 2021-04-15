@@ -22,59 +22,64 @@ class leave(commands.Cog):
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
-        from .join import send_verification_messages_ids
 
         mycol = mydb[str(user.guild.id)]
 
         document = mycol.find_one({'_id': user.guild.id})
 
-        if str(reaction.emoji) == '✅' and user.id != bot_snowflake and reaction.message.id in send_verification_messages_ids:
-            from .join import member_joined_dict, embed_send, slownik, who_joined
+        if str(reaction.emoji) == '✅' and user.id != bot_snowflake:
 
-            who_joined = member_joined_dict[reaction.message.id]
+            from .join import send_verification_messages_ids, member_joined_dict, embed_send, slownik, who_joined
 
-            pfp = who_joined.avatar_url_as(size=32)
+            if reaction.message.id in send_verification_messages_ids:
 
-            var = discord.utils.get(user.guild.roles, name = document['roleJoinID'])
-            await slownik[reaction.message.id].add_roles(var)
+                who_joined = member_joined_dict[reaction.message.id]
 
-            await reaction.message.remove_reaction('✅', user)
+                pfp = who_joined.avatar_url_as(size=32)
 
-            await reaction.message.remove_reaction('✅', user.guild.get_member(bot_snowflake))
-            await reaction.message.remove_reaction('❌', user.guild.get_member(bot_snowflake))
+                var = discord.utils.get(user.guild.roles, name = document['roleJoinID'])
+                await slownik[reaction.message.id].add_roles(var)
 
-            embed_verified=discord.Embed(description = f'{who_joined.mention} {who_joined}', color=0x66ff33)
-            embed_verified.set_author(icon_url=pfp, name = 'Member Joined')
-            embed_verified.set_footer(text=f'{user.id}', icon_url=pfp)
-            embed_verified.add_field(name=f'Verified by: {user}', value=f'Account created at: `{str(who_joined.created_at)[:-7]}`', inline=False)
-            embed_verified.timestamp = datetime.datetime.utcnow()
+                await reaction.message.remove_reaction('✅', user)
 
-            await send_verification_messages_ids[reaction.message.id].edit(embed=embed_verified)
+                await reaction.message.remove_reaction('✅', user.guild.get_member(bot_snowflake))
+                await reaction.message.remove_reaction('❌', user.guild.get_member(bot_snowflake))
 
+                embed_verified=discord.Embed(description = f'{who_joined.mention} {who_joined}', color=0x66ff33)
+                embed_verified.set_author(icon_url=pfp, name = 'Member Joined')
+                embed_verified.set_footer(text=f'{user.id}', icon_url=pfp)
+                embed_verified.add_field(name=f'Verified by: {user}', value=f'Account created at: `{str(who_joined.created_at)[:-7]}`', inline=False)
+                embed_verified.timestamp = datetime.datetime.utcnow()
 
-        if str(reaction.emoji) == '❌' and user.id != bot_snowflake and reaction.message.id in send_verification_messages_ids:
-            from .join import member_joined_dict, embed_send, slownik, who_joined
-            who_joined = member_joined_dict[reaction.message.id]
+                await send_verification_messages_ids[reaction.message.id].edit(embed=embed_verified)
 
-            pfp = who_joined.avatar_url_as(size=32)
+        if str(reaction.emoji) == '❌' and user.id != bot_snowflake:
 
-            await user.guild.kick(slownik[reaction.message.id])
+            from .join import send_verification_messages_ids, member_joined_dict, embed_send, slownik, who_joined
 
-            await reaction.message.remove_reaction('❌', user)
+            if reaction.message.id in send_verification_messages_ids:
 
-            await reaction.message.remove_reaction('✅', user.guild.get_member(bot_snowflake))
-            await reaction.message.remove_reaction('❌', user.guild.get_member(bot_snowflake))
+                who_joined = member_joined_dict[reaction.message.id]
 
-            embed_kicked=discord.Embed(description = f'{who_joined.mention} {who_joined}', color=0xff0000)
-            embed_kicked.set_author(icon_url=pfp, name = 'Member Joined')
-            embed_kicked.set_footer(text=f'{who_joined.id}', icon_url=pfp)
-            embed_kicked.add_field(name=f'Kicked by: {user}', value=f'Account created at: `{str(who_joined.created_at)[:-7]}`', inline=False)
-            embed_kicked.timestamp = datetime.datetime.utcnow()
+                pfp = who_joined.avatar_url_as(size=32)
 
-            await send_verification_messages_ids[reaction.message.id].edit(embed=embed_kicked)
+                await user.guild.kick(slownik[reaction.message.id])
 
-            if str(reaction.emoji) == '<:sus:820070011070185503>' and user.id != bot_snowflake:
-                await reaction.message.add_reaction('<:trollcrazy:800421758099783710>')
+                await reaction.message.remove_reaction('❌', user)
+
+                await reaction.message.remove_reaction('✅', user.guild.get_member(bot_snowflake))
+                await reaction.message.remove_reaction('❌', user.guild.get_member(bot_snowflake))
+
+                embed_kicked=discord.Embed(description = f'{who_joined.mention} {who_joined}', color=0xff0000)
+                embed_kicked.set_author(icon_url=pfp, name = 'Member Joined')
+                embed_kicked.set_footer(text=f'{who_joined.id}', icon_url=pfp)
+                embed_kicked.add_field(name=f'Kicked by: {user}', value=f'Account created at: `{str(who_joined.created_at)[:-7]}`', inline=False)
+                embed_kicked.timestamp = datetime.datetime.utcnow()
+
+                await send_verification_messages_ids[reaction.message.id].edit(embed=embed_kicked)
+
+        if str(reaction.emoji) == '<:sus:820070011070185503>' and user.id != bot_snowflake:
+            await reaction.message.add_reaction('<:trollcrazy:800421758099783710>')
 
 
 def setup(client):

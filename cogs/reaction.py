@@ -22,13 +22,14 @@ class leave(commands.Cog):
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
-        from .join import member_joined_dict, embed_send, slownik, who_joined, send_verification_messages_ids
+        from .join import send_verification_messages_ids
 
         mycol = mydb[str(user.guild.id)]
 
         document = mycol.find_one({'_id': user.guild.id})
 
         if str(reaction.emoji) == '✅' and user.id != bot_snowflake and reaction.message.id in send_verification_messages_ids:
+            from .join import member_joined_dict, embed_send, slownik, who_joined
 
             who_joined = member_joined_dict[reaction.message.id]
 
@@ -52,7 +53,7 @@ class leave(commands.Cog):
 
 
         if str(reaction.emoji) == '❌' and user.id != bot_snowflake and reaction.message.id in send_verification_messages_ids:
-
+            from .join import member_joined_dict, embed_send, slownik, who_joined
             who_joined = member_joined_dict[reaction.message.id]
 
             pfp = who_joined.avatar_url_as(size=32)
@@ -71,6 +72,9 @@ class leave(commands.Cog):
             embed_kicked.timestamp = datetime.datetime.utcnow()
 
             await send_verification_messages_ids[reaction.message.id].edit(embed=embed_kicked)
+
+            if str(reaction.emoji) == '<:sus:820070011070185503>' and user.id != bot_snowflake:
+                await reaction.message.add_reaction('<:trollcrazy:800421758099783710>')
 
 
 def setup(client):

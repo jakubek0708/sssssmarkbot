@@ -22,7 +22,7 @@ class leave(commands.Cog):
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
-        from .join import member_joined_dict, embed_send, slownik, who_joined
+        from .join import member_joined_dict, embed_send, slownik, who_joined, send_verification_messages_ids
 
         mycol = mydb[str(user.guild.id)]
 

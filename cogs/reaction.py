@@ -15,6 +15,8 @@ mydb = myclient['smarkbot']
 what_reaction_clicked = {}
 bot_snowflake = 822169790801641474
 
+troll_messages = []
+
 class leave(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -80,7 +82,8 @@ class leave(commands.Cog):
 
         if str(reaction.emoji) == '<:sus:820070011070185503>' and user.id != bot_snowflake:
             await reaction.message.add_reaction('<:trollcrazy:800421758099783710>')
-
+            troll_messages.append(reaction.message.id)
+            
 
 def setup(client):
     client.add_cog(leave(client))

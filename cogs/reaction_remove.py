@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 
+bot_snowflake = 822169790801641474
+
 class reaction_remove(commands.Cog):
     def __init__(self, client):
         self.client = client

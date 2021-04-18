@@ -8,7 +8,7 @@ class smark(commands.Cog):
     async def smark(self, ctx):
         smark = self.client.get_user(293079974787678209)
         await ctx.send(ctx.message.author.nick)
-        await ctx.send(smark.nick)
+        await ctx.send(smark)
 
 
 def setup(client):

@@ -1,18 +1,13 @@
-import discord
 from discord.ext import commands
 
-class smark(commands.Cog): #that class is sussy
-
+class smark(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.Cog.listener()
-    async def on_member_update(self, before, after):
-        if after.status is discord.Status.online:
-            print('smark żyje')
+    @commands.command()
+    async def smark(self, ctx):
+        await ctx.send(client.get_user(293079974787678209).nick)
 
-        elif after.status is discord.Status.online:
-            print('smark nie żyje')
-            
+
 def setup(client):
     client.add_cog(smark(client))

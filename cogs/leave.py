@@ -23,11 +23,9 @@ class leave(commands.Cog):
         mycol = mydb[str(member.guild.id)] #collection
 
         document = mycol.find_one({'_id': member.guild.id})
-        print(document['logsChannellID'], type(document['logsChannellID']))
 
         log_channel = int(document['logsChannellID'])
 
-        print(2, log_channel, type(log_channel))
         who_joined = member
 
         channel = self.client.get_channel(log_channel)

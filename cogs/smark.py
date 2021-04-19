@@ -11,9 +11,10 @@ class smark(commands.Cog):
         smark = server.get_member(293079974787678209)
         voice_state = smark.voice
 
-        if voice_state.channel.id == 831675365738545162:
-            smark_status = 'śpi'
-
+        if voice_state is not None:
+            if voice_state.channel.id == 831675365738545162:
+                smark_status = 'śpi'
+                
         elif smark.status == 'online':
             smark_status = 'żyje'
 

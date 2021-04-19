@@ -10,6 +10,7 @@ class smark(commands.Cog):
         smark = server.get_member(293079974787678209)
         await ctx.send(smark.status)
         voice_state = smark.voice
-        await ctx.send(voice_state.id == 831675365738545162)
+        await ctx.send(voice_state.id)
+
 def setup(client):
     client.add_cog(smark(client))

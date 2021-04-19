@@ -10,7 +10,7 @@ class smark(commands.Cog):
         smark = server.get_member(293079974787678209)
         await ctx.send(ctx.message.author.nick)
         await ctx.send(smark.status)
-
+        await ctx.send(smark)
 
 def setup(client):
     client.add_cog(smark(client))

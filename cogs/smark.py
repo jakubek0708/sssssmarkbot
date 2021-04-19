@@ -11,20 +11,22 @@ class smark(commands.Cog):
         smark = server.get_member(293079974787678209)
         voice_state = smark.voice
 
+        smark_check = str(smark.status)
+
         if voice_state is not None:
             if voice_state.channel.id == 831675365738545162:
                 smark_status = 'śpi'
-                
-        elif smark.status == 'online':
+
+        elif smark_check == 'online':
             smark_status = 'żyje'
 
-        elif smark.status == 'offline':
+        elif smark_check == 'offline':
             smark_status = 'nie żyje'
 
-        elif smark.status == 'idle':
+        elif smark_check == 'idle':
             smark_status = 'chyba nie żyje'
 
-        elif smark.status == 'dnd':
+        elif smark_check == 'dnd':
             smark_status = 'coś robi cii'
 
         await ctx.send(f'stan smarka: {smark_status}')

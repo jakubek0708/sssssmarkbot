@@ -15,7 +15,14 @@ class smark(commands.Cog):
 
         if voice_state is not None:
             if voice_state.channel.id == 831675365738545162:
-                smark_status = 'śpi'
+                smark_spi = True
+            else:
+                smark_spi = False
+        else:
+            smark_spi = False
+
+        if smark_spi:
+            smark_status = 'śpi'
 
         elif smark_check == 'online':
             smark_status = 'żyje'
@@ -27,7 +34,7 @@ class smark(commands.Cog):
             smark_status = 'chyba nie żyje'
 
         elif smark_check == 'dnd':
-            smark_status = 'coś robi cii'
+            smark_status = 'robo cii'
 
         await ctx.send(f'stan smarka: {smark_status}')
 

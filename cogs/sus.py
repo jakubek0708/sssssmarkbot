@@ -16,6 +16,6 @@ class sus(commands.Cog): #that class is sussy
 
         if message.content.lower() == 'e':
             await message.add_reaction('<a:peepoHappyJAM:832655294500831295>')
-
+        
 def setup(client):
     client.add_cog(sus(client))

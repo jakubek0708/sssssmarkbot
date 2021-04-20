@@ -7,6 +7,7 @@ class test(commands.Cog):
     @commands.command()
     async def test(self, ctx):
         await ctx.send("test failed damb")
-        await ctx.send(ctx.message.author.roles)
+        await ctx.send(dir(ctx.message.author.roles))
+
 def setup(client):
     client.add_cog(test(client))

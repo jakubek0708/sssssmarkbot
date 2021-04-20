@@ -18,7 +18,7 @@ class smark(commands.Cog):
         smark_check = str(smark.status)
 
         if voice_state is not None:
-            smark_spi = any(ext in voice_state.channel.name.lowercase() for ext in co_smark)
+            smark_spi = any(ext in voice_state.channel.name.lower() for ext in co_smark)
 
         if smark_spi:
             smark_status = 'śpi'

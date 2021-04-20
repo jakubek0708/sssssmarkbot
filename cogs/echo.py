@@ -14,7 +14,6 @@ class echo(commands.Cog):
 
     @commands.command()
     async def echo(self, ctx, *, message):
-        await ctx.send(type(ctx.message.author.id))
         if ctx.message.author.id in smarkbot_staff:
             await ctx.message.delete()
             await ctx.send(message)

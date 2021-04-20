@@ -1,5 +1,7 @@
 from discord.ext import commands
 
+co_smark = ('śpi', 'spi', 'śpią', 'spia')
+
 class smark(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -14,7 +16,7 @@ class smark(commands.Cog):
         smark_check = str(smark.status)
 
         if voice_state is not None:
-            if voice_state.channel.id == 831675365738545162:
+            if any(ext in voice_state.channel.name.lowercase() for ext in co_smark):
                 smark_spi = True
             else:
                 smark_spi = False

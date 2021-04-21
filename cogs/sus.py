@@ -13,6 +13,8 @@ class sus(commands.Cog): #that class is sussy
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        global zmywara_time
+        
         smarkownia = self.client.get_guild(id=489137343148851210)
 
         zmywara = discord.utils.get(smarkownia.roles, name = 'RANGA DZIEWCZYNA')

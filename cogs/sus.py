@@ -29,7 +29,7 @@ class sus(commands.Cog): #that class is sussy
 
         smarkownia = self.client.get_guild(id=489137343148851210)
 
-        zmywara = discord.utils.get(smarkownia.roles, name = 'RANGA DZIEWCZYNA')
+        zmywara = discord.utils.get(smarkownia.roles, name='RANGA DZIEWCZYNA')
         if 'sus' in message.content.lower():
             await message.add_reaction('<:trollcrazy:800421758099783710>')
             sussy_messages.append(message.id)

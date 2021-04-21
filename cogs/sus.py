@@ -24,6 +24,7 @@ class sus(commands.Cog): #that class is sussy
             await message.add_reaction('<a:peepoHappyJAM:832655294500831295>')
 
         if zmywara in message.author.roles:
+            print('trolololo')
             now = datetime.datetime.now()
             if zmywara_time is not None:
                 if now > zmywara_time + datetime.timedelta(seconds=5):

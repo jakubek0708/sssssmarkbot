@@ -25,7 +25,7 @@ class sus(commands.Cog): #that class is sussy
         if zmywara in message.author.roles:
             now = datetime.datetime.now()
             if zmywara_time is not None:
-                if now > zmywara_time + datetime.timedelta(hours=1)
+                if now > zmywara_time + datetime.timedelta(seconds=5)
                     ctx = await self.client.get_context(message)
                     await ctx.send('utkaj łeb zmywara')
                     zmywara_time = datetime.datetime.now()

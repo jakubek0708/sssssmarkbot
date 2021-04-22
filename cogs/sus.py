@@ -16,7 +16,8 @@ top_10_powodow_dlaczego_kobiety_nie_maja_praw = [
     'boze znowu zmywara',
     'ah yes w*man',
     'MORDA MIKROFALO',
-    'przestan prsoze k*bieto']
+    'przestan prsoze k*bieto',
+    'ok worze na sperme']
 
 
 class sus(commands.Cog):  # that class is sussy

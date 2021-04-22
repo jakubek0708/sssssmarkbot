@@ -8,14 +8,15 @@ USERNAME = os.getenv('USERNAME')
 PASSWORD = os.getenv('PASSWORD')
 MONGO_PORT = os.getenv('MONGO_PORT')
 MONGO_PORT = int(MONGO_PORT)
-myclient = pymongo.MongoClient(f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
+myclient = pymongo.MongoClient(
+    f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
 
 mydb = myclient['smarkbot']
+
 
 class ServerJoin(commands.Cog):
     def __init__(self, client):
         self.client = client
-
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
@@ -23,11 +24,11 @@ class ServerJoin(commands.Cog):
         print(mycol.drop())
         print(f'joined {guild.name}')
         server = {}
-        mycol.insert_one({'_id':guild.id,
-        'name': guild.name,
-        'membersJoinLeaveLogs': False,
-        'logsChannellID': None,
-        'roleJoinID': None})
+        mycol.insert_one({'_id': guild.id,
+                          'name': guild.name,
+                          'membersJoinLeaveLogs': False,
+                          'logsChannellID': None,
+                          'roleJoinID': None})
 
 
 def setup(client):

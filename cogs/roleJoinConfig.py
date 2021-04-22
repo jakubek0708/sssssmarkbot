@@ -10,8 +10,10 @@ PASSWORD = os.getenv('PASSWORD')
 MONGO_PORT = os.getenv('MONGO_PORT')
 MONGO_PORT = int(MONGO_PORT)
 
-myclient = pymongo.MongoClient(f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
+myclient = pymongo.MongoClient(
+    f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
 mydb = myclient['smarkbot']
+
 
 class roleConfig(commands.Cog):
     def __init__(self, client):
@@ -20,16 +22,17 @@ class roleConfig(commands.Cog):
     @commands.command()
     @has_permissions(administrator=True)
     async def roleConfig(self, ctx, *, message):
-        mycol = mydb[str(ctx.message.guild.id)] #collection
+        mycol = mydb[str(ctx.message.guild.id)]  # collection
         content = message
         document = mycol.find_one({'_id': ctx.message.guild.id})
         print(type(content))
         try:
-            discord.utils.get(ctx.message.guild.roles, name = content)
+            discord.utils.get(ctx.message.guild.roles, name=content)
             mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'roleJoinID': content}})
             await ctx.send(f'Zmieniłem rolę na `{content}`')
         except:
             await ctx.send('Nie mogę znaleźć roli, upewnij się, że dałeś jej nazwę (nie pinguj jej, po prostu nazwa)')
+
 
 def setup(client):
     client.add_cog(roleConfig(client))

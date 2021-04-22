@@ -10,7 +10,7 @@ import asyncio
 intents = discord.Intents.default()
 intents.members = True
 intents.presences = True
-client = commands.Bot(command_prefix = ',', intents=intents)
+client = commands.Bot(command_prefix=',', intents=intents)
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
@@ -58,6 +58,6 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 # ░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░░░░█░░
 # YOU'VE BEEN TROLLED
 
-#smark tu był :tf://
+# smark tu był :tf://
 
 client.run(TOKEN)

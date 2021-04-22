@@ -9,6 +9,7 @@ SERVER_IP = os.getenv('SERVER_IP')
 
 server = MinecraftServer(SERVER_IP, PORT)
 
+
 class players(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -26,8 +27,6 @@ class players(commands.Cog):
 
         except:
             await ctx.send('Nie mogę się połączyć z serwerem xd')
-
-
 
 
 def setup(client):

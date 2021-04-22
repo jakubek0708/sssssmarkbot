@@ -10,8 +10,10 @@ USERNAME = os.getenv('USERNAME')
 PASSWORD = os.getenv('PASSWORD')
 MONGO_PORT = os.getenv('MONGO_PORT')
 MONGO_PORT = int(MONGO_PORT)
-myclient = pymongo.MongoClient(f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
+myclient = pymongo.MongoClient(
+    f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
 mydb = myclient['smarkbot']
+
 
 class logconfig(commands.Cog):
     def __init__(self, client):
@@ -20,7 +22,7 @@ class logconfig(commands.Cog):
     @commands.command()
     @has_permissions(administrator=True)
     async def logconfig(self, ctx, *, message):
-        mycol = mydb[str(ctx.message.guild.id)] #collection
+        mycol = mydb[str(ctx.message.guild.id)]  # collection
         content = message
         document = mycol.find_one({'_id': ctx.message.guild.id})
 
@@ -36,10 +38,12 @@ class logconfig(commands.Cog):
         elif type(content) == str:
             if document['logsChannellID'] != None:
                 if content == 'on':
-                    mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'membersJoinLeaveLogs': True}})
+                    mycol.update_one({'_id': ctx.message.guild.id}, {
+                                     '$set': {'membersJoinLeaveLogs': True}})
                     await ctx.send('Turned to: `on`')
                 elif content == 'off':
-                    mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'membersJoinLeaveLogs': False}})
+                    mycol.update_one({'_id': ctx.message.guild.id}, {
+                                     '$set': {'membersJoinLeaveLogs': False}})
                     await ctx.send('Turned to: `off`')
                 else:
                     await ctx.send('Dostępne tylko: `on` i `off`')

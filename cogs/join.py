@@ -9,7 +9,8 @@ USERNAME = os.getenv('USERNAME')
 PASSWORD = os.getenv('PASSWORD')
 MONGO_PORT = os.getenv('MONGO_PORT')
 MONGO_PORT = int(MONGO_PORT)
-myclient = pymongo.MongoClient(f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
+myclient = pymongo.MongoClient(
+    f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
 mydb = myclient['smarkbot']
 
 slownik = {}
@@ -17,10 +18,10 @@ who_joined = None
 send_verification_messages_ids = {}
 member_joined_dict = {}
 
+
 class join(commands.Cog):
     def __init__(self, client):
         self.client = client
-
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -40,10 +41,11 @@ class join(commands.Cog):
 
             pfp = member.avatar_url_as(size=32)
 
-            embed=discord.Embed(description = f'{member.mention} {member}', color=0xf28500)
-            embed.set_author(icon_url=pfp, name = 'Member Joined')
+            embed = discord.Embed(description=f'{member.mention} {member}', color=0xf28500)
+            embed.set_author(icon_url=pfp, name='Member Joined')
             embed.set_footer(text=f'{member.id}', icon_url=pfp)
-            embed.add_field(name='User verification pending', value=f'Account created at: `{str(member.created_at)[:-7]}`', inline=False)
+            embed.add_field(name='User verification pending',
+                            value=f'Account created at: `{str(member.created_at)[:-7]}`', inline=False)
             embed.timestamp = datetime.datetime.utcnow()
 
             embed_send = await channel.send(embed=embed)

@@ -8,8 +8,10 @@ USERNAME = os.getenv('USERNAME')
 PASSWORD = os.getenv('PASSWORD')
 MONGO_PORT = os.getenv('MONGO_PORT')
 MONGO_PORT = int(MONGO_PORT)
-myclient = pymongo.MongoClient(f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
+myclient = pymongo.MongoClient(
+    f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
 mydb = myclient['smarkbot']
+
 
 class info(commands.Cog):
     def __init__(self, client):
@@ -27,12 +29,12 @@ class info(commands.Cog):
         else:
             logs_status = 'off'
 
-
-        embed=discord.Embed(title="Info", description="statuses:", color=0x00e1ff)
+        embed = discord.Embed(title="Info", description="statuses:", color=0x00e1ff)
         embed.add_field(name="Logs:", value=logs_status, inline=False)
         embed.add_field(name="Log channel ID:", value=document['logsChannellID'], inline=False)
         embed.add_field(name="Acceptance role:", value=document['roleJoinID'], inline=False)
         await ctx.send(embed=embed)
+
 
 def setup(client):
     client.add_cog(info(client))

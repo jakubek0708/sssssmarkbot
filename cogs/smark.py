@@ -4,6 +4,7 @@ co_smark = ('śpi', 'spi', 'śpią', 'spia')
 
 smark_spi = False
 
+
 class smark(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -18,7 +19,6 @@ class smark(commands.Cog):
         smark_check = str(smark.status)
 
         smark_spi = voice_state is not None and voice_state.channel.category_id == 833937577853059073
-
 
         if smark_spi:
             smark_status = 'śpi'
@@ -36,6 +36,7 @@ class smark(commands.Cog):
             smark_status = 'robo cii'
 
         await ctx.send(f'stan smarka: {smark_status}')
+
 
 def setup(client):
     client.add_cog(smark(client))

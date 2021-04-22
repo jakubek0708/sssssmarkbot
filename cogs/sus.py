@@ -11,14 +11,15 @@ zmywara_time = None
 #kobiety == xd
 
 top_10_powodow_dlaczego_kobiety_nie_maja_praw = [
-  'EL ZMYWARO',
-  'SIEMA ZMYWARA',
-  'boze znowu zmywara',
-  'ah yes w*man',
-  'MORDA MIKROFALO',
-  'przestan prsoze k*bieto']
+    'EL ZMYWARO',
+    'SIEMA ZMYWARA',
+    'boze znowu zmywara',
+    'ah yes w*man',
+    'MORDA MIKROFALO',
+    'przestan prsoze k*bieto']
 
-class sus(commands.Cog): #that class is sussy
+
+class sus(commands.Cog):  # that class is sussy
 
     def __init__(self, client):
         self.client = client
@@ -47,6 +48,7 @@ class sus(commands.Cog): #that class is sussy
                     zmywara_time = datetime.datetime.now()
             else:
                 zmywara_time = datetime.datetime.now()
+
 
 def setup(client):
     client.add_cog(sus(client))

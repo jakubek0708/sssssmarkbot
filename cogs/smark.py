@@ -20,20 +20,17 @@ class smark(commands.Cog):
 
         smark_spi = voice_state is not None and voice_state.channel.category_id == 833937577853059073
 
+        smark_status_dict = {
+            'online': 'żyje',
+            'offline': 'nie żyje',
+            'idle': 'chyba nie żyje',
+            'dnd': 'robo cii'
+        }
+
         if smark_spi:
             smark_status = 'śpi'
-
-        elif smark_check == 'online':
-            smark_status = 'żyje'
-
-        elif smark_check == 'offline':
-            smark_status = 'nie żyje'
-
-        elif smark_check == 'idle':
-            smark_status = 'chyba nie żyje'
-
-        elif smark_check == 'dnd':
-            smark_status = 'robo cii'
+        else:
+            smark_status = smark_status_dict[smark_check]
 
         await ctx.send(f'stan smarka: {smark_status}')
 

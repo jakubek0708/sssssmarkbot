@@ -50,7 +50,7 @@ class sus(commands.Cog):  # that class is sussy
             else:
                 zmywara_time = datetime.datetime.now()
 
-        if message.content == 'https://media.discordapp.net/attachments/595954762533306389/835854872712708106/tenor.gif':
+        if message.attachments[0] == 'https://media.discordapp.net/attachments/595954762533306389/835854872712708106/tenor.gif':
             await ctx.message.delete()
             await ctx.send(f'{message.author.name} przestan byc az tak kurwa smieszny jebancu')
 

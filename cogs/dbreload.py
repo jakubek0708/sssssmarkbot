@@ -20,6 +20,7 @@ class dbreload(commands.Cog):
         self.client = client
 
     @commands.command()
+    @has_permissions(administrator=True)
     async def dbreload(self, ctx):
         try:
             mycol = mydb[str(ctx.guild.id)]
@@ -28,7 +29,7 @@ class dbreload(commands.Cog):
                             'name': ctx.guild.name,
                             'membersJoinLeaveLogs': False,
                             'logsChannellID': None,
-                            'roleJoinID': None
+                            'roleJoinID': None,
                             'roles': []})
 
             await ctx.send('Database reloaded')

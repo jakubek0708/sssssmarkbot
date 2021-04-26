@@ -27,7 +27,7 @@ class ServerJoin(commands.Cog):
                           'name': guild.name,
                           'membersJoinLeaveLogs': False,
                           'logsChannellID': None,
-                          'roleJoinID': None
+                          'roleJoinID': None,
                           'roles': []})
 
 

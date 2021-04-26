@@ -23,12 +23,12 @@ class ServerJoin(commands.Cog):
         mycol = mydb[str(guild.id)]
         print(mycol.drop())
         print(f'joined {guild.name}')
-        server = {}
         mycol.insert_one({'_id': guild.id,
                           'name': guild.name,
                           'membersJoinLeaveLogs': False,
                           'logsChannellID': None,
-                          'roleJoinID': None})
+                          'roleJoinID': None
+                          'roles': []})
 
 
 def setup(client):

@@ -25,7 +25,6 @@ class roleConfig(commands.Cog):
         mycol = mydb[str(ctx.message.guild.id)]  # collection
         content = message
         document = mycol.find_one({'_id': ctx.message.guild.id})
-        print(type(content))
         try:
             discord.utils.get(ctx.message.guild.roles, name=content)
             mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'roleJoinID': content}})

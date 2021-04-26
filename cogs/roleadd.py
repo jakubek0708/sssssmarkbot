@@ -14,7 +14,6 @@ myclient = pymongo.MongoClient(
     f"mongodb://localhost:{MONGO_PORT}", username=USERNAME, password=PASSWORD)
 mydb = myclient['smarkbot']
 
-
 class roleadd(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -31,7 +30,7 @@ class roleadd(commands.Cog):
             role_list.append(role)
             content = role_list
             mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'roles': content}})
-            await ctx.send('dodano :))')
+            await ctx.send(f'dodano {role_name} :))')
         except:
             await ctx.send('Coś się zjebało xd')
 

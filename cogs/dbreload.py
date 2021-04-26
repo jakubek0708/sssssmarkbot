@@ -1,4 +1,5 @@
 from discord.ext import commands
+from discord.ext.commands import has_permissions
 import discord
 import pymongo
 from dotenv import load_dotenv
@@ -20,6 +21,7 @@ class dbreload(commands.Cog):
         self.client = client
 
     @commands.command()
+    @has_permissions(administrator=True)
     async def dbreload(self, ctx):
         try:
             mycol = mydb[str(ctx.guild.id)]

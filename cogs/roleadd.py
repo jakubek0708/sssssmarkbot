@@ -20,6 +20,7 @@ class roleadd(commands.Cog):
         self.client = client
 
     @commands.command()
+    @has_permissions(administrator=True)
     async def roleadd(self, ctx):
         mycol = mydb[str(ctx.guild.id)]  # collection
         document = mycol.find_one({'_id': ctx.guild.id})

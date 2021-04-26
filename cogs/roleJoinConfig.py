@@ -21,7 +21,7 @@ class roleConfig(commands.Cog):
 
     @commands.command()
     @has_permissions(administrator=True)
-    async def roleConfig(self, ctx, *, message):
+    async def roleconfig(self, ctx, *, message):
         mycol = mydb[str(ctx.message.guild.id)]  # collection
         content = message
         document = mycol.find_one({'_id': ctx.message.guild.id})

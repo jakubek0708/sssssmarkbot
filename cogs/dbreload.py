@@ -20,7 +20,6 @@ class dbreload(commands.Cog):
         self.client = client
 
     @commands.command()
-    @has_permissions(administrator=True)
     async def dbreload(self, ctx):
         try:
             mycol = mydb[str(ctx.guild.id)]

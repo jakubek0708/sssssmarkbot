@@ -23,7 +23,7 @@ class roleadd(commands.Cog):
     async def roleadd(self, ctx, *, message):
         mycol = mydb[str(ctx.guild.id)]  # collection
         document = mycol.find_one({'_id': ctx.guild.id})
-        role_name = ctx.message.content
+        role_name = message
         try:
             role = discord.utils.get(ctx.message.guild.roles, name=role_name)
             role_list = document['roles']

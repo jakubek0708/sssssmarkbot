@@ -21,7 +21,7 @@ class role(commands.Cog):
 
     @commands.command()
     async def role(self, ctx):
-        lista = ["aa", "xd"]
+        lista = ["aa", "https://media.discordapp.net/attachments/764447332288561152/822936777811427369/image0_4.gif"]
         lista_str = ", ".join(lista)
         await ctx.send(lista_str)
         

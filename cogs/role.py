@@ -20,10 +20,10 @@ class role(commands.Cog):
         self.client = client
 
     @commands.command()
-    async def role(self, ctx):
+    async def role(self, ctx, *, message):
         lista = ["aa", "xd"]
         lista_str = ", ".join(lista)
-        await ctx.send(lista_str)
+        await ctx.send(message)
         
 
 

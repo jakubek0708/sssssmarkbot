@@ -16,7 +16,7 @@ top_10_powodow_dlaczego_kobiety_nie_maja_praw = [
     'boze znowu zmywara',
     'ah yes w*man',
     'MORDA MIKROFALO',
-    'przestan prsoze k*bieto',
+    'przestan prosze k*bieto',
     'ok worze na sperme']
 
 

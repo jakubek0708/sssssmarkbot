@@ -23,7 +23,7 @@ class role(commands.Cog):
     async def role(self, ctx, *, message):
         lista = ["aa", "xd"]
         lista_str = ", ".join(lista)
-        await ctx.send(message, lista_str)
+        await ctx.send(message)
         
 
 

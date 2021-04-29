@@ -33,6 +33,7 @@ class info(commands.Cog):
         embed.add_field(name="Logs:", value=logs_status, inline=False)
         embed.add_field(name="Log channel ID:", value=document['logsChannellID'], inline=False)
         embed.add_field(name="Acceptance role:", value=document['roleJoinID'], inline=False)
+        embed.add_field(name="Roles:", value=document['roles'], inline=False)
         await ctx.send(embed=embed)
 
 

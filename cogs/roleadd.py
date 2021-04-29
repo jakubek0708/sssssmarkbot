@@ -24,15 +24,15 @@ class roleadd(commands.Cog):
         mycol = mydb[str(ctx.guild.id)]  # collection
         document = mycol.find_one({'_id': ctx.guild.id})
         role_name = message
-        try:
-            role = discord.utils.get(ctx.message.guild.roles, name=role_name)
-            role_list = document['roles']
-            role_list.append(role)
-            content = role_list
-            mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'roles': content}})
-            await ctx.send(f'dodano {role_name} :))')
-        except:
-            await ctx.send('Coś się zjebało xd')
+        # try:
+        role = discord.utils.get(ctx.message.guild.roles, name=role_name)
+        role_list = document['roles']
+        role_list.append(role)
+        content = role_list
+        mycol.update_one({'_id': ctx.message.guild.id}, {'$set': {'roles': content}})
+        await ctx.send(f'dodano {role_name} :))')
+        # except:
+        #     await ctx.send('Coś się zjebało xd')
 
 
 def setup(client):

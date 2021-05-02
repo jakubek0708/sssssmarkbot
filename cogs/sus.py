@@ -32,7 +32,7 @@ class sus(commands.Cog):  # that class is sussy
         if message.content.lower() == 'e':
             await message.add_reaction('<a:peepoHappyJAM:832655294500831295>')
 
-        if str(message.author.id) == 563303463748894721:
+        if str(message.author.id) == '563303463748894721':
             ctx = await self.client.get_context(message)
             await ctx.send(random.choice(smarkbot_zjeb))
 

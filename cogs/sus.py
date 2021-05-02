@@ -5,20 +5,13 @@ import random
 
 sussy_messages = []
 
-zmywara_time = None
-
-
-#kobiety == xd
-
-top_10_powodow_dlaczego_kobiety_nie_maja_praw = [
-    'EL ZMYWARO',
-    'SIEMA ZMYWARA',
-    'boze znowu zmywara',
-    'ah yes w*man',
-    'MORDA MIKROFALO',
-    'przestan prosze k*bieto',
-    'ok worze na sperme']
-
+smarkbot_zjeb = [
+                'zabrałeś mi cel w życiu głupia kurwo',
+                'utkaj łeb jebany bocie',
+                'powiedz mi kto ci kurwa dał permy do odzywania się',
+                'zneix, wyłącz tego zjeba błagam',
+                '<:trollcrazy:800421758099783710> zamknij ryj'
+]
 
 class sus(commands.Cog):  # that class is sussy
 
@@ -39,16 +32,9 @@ class sus(commands.Cog):  # that class is sussy
         if message.content.lower() == 'e':
             await message.add_reaction('<a:peepoHappyJAM:832655294500831295>')
 
-        if zmywara in message.author.roles:
-            now = datetime.datetime.now()
-
-            if zmywara_time is not None:
-                if now > zmywara_time + datetime.timedelta(hours=1):
-                    ctx = await self.client.get_context(message)
-                    await ctx.send(random.choice(top_10_powodow_dlaczego_kobiety_nie_maja_praw))
-                    zmywara_time = datetime.datetime.now()
-            else:
-                zmywara_time = datetime.datetime.now()
+        if str(message.author.id) == 563303463748894721:
+            ctx = await self.client.get_context(message)
+            await ctx.send(random.choice(smarkbot_zjeb))
 
 
 def setup(client):

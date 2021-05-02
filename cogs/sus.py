@@ -5,6 +5,10 @@ import random
 
 sussy_messages = []
 
+smarkbot_time = None
+
+
+
 smarkbot_zjeb = [
                 'zabrałeś mi cel w życiu głupia kurwo',
                 'utkaj łeb jebany bocie',
@@ -20,7 +24,7 @@ class sus(commands.Cog):  # that class is sussy
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        global zmywara_time
+        global smarkbot_time
 
         smarkownia = self.client.get_guild(id=489137343148851210)
 
@@ -32,9 +36,16 @@ class sus(commands.Cog):  # that class is sussy
         if message.content.lower() == 'e':
             await message.add_reaction('<a:peepoHappyJAM:832655294500831295>')
 
-        if str(message.author.id) == '563303463748894721':
-            ctx = await self.client.get_context(message)
-            await ctx.send(random.choice(smarkbot_zjeb))
+        if zmywara in message.author.roles:
+            now = datetime.datetime.now()
+
+            if smarkbot_time is not None:
+                if now > smarkbot_time + datetime.timedelta(hours=6):
+                    ctx = await self.client.get_context(message)
+                    await ctx.send(random.choice(smarkbot_zjeb))
+                    smarkbot_time = datetime.datetime.now()
+            else:
+                smarkbot_time = datetime.datetime.now()
 
 
 def setup(client):

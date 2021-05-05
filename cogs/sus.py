@@ -28,7 +28,6 @@ class sus(commands.Cog):  # that class is sussy
 
         smarkownia = self.client.get_guild(id=489137343148851210)
 
-        zmywara = discord.utils.get(smarkownia.roles, name='RANGA DZIEWCZYNA')
         if 'sus' in message.content.lower():
             await message.add_reaction('<:trollcrazy:800421758099783710>')
             sussy_messages.append(message.id)
@@ -36,7 +35,7 @@ class sus(commands.Cog):  # that class is sussy
         if message.content.lower() == 'e':
             await message.add_reaction('<a:peepoHappyJAM:832655294500831295>')
 
-        if zmywara in message.author.roles:
+        if message.author.id == '563303463748894721':
             now = datetime.datetime.now()
 
             if smarkbot_time is not None:

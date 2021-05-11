@@ -1,12 +1,12 @@
 from discord.ext import commands
 
 
-class test(commands.Cog):
+class es(commands.Cog):
     def __init__(self, client):
         self.client = client
 
     @commands.command()
-    async def test(self, ctx):
+    async def wedajmiten(self, ctx):
         server = self.client.get_guild(id=489137343148851210)
         smark = server.get_member(293079974787678209)
         await smark.send("Ej bo pracę domową mam z infy")
@@ -16,4 +16,4 @@ class test(commands.Cog):
         
 
 def setup(client):
-    client.add_cog(test(client))
+    client.add_cog(es(client))

@@ -11,10 +11,10 @@ intents = discord.Intents.default()
 intents.members = True
 intents.presences = True
 client = commands.Bot(command_prefix=',,', intents=intents)
-
+autism = client.get_channel('560122060081463307')
 @tasks.loop(seconds = 1)
 async def czarnuh():
-    await client.send_message(client.get_channel('560122060081463307'), 'nigger')
+    await autism.send('nigger')
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):

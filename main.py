@@ -66,5 +66,5 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 # smark tu był :tf://
 
 
-
+czarnuh.start()
 client.run(TOKEN)

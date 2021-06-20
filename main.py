@@ -14,8 +14,7 @@ client = commands.Bot(command_prefix=',,', intents=intents)
 
 @tasks.loop(seconds = 1)
 async def czarnuh():
-    autism = client.get_channel(560122060081463307)
-    await autism.send('nigger')
+    await client.send_message(client.get_channel('560122060081463307'), 'nigger')
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):

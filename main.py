@@ -11,7 +11,7 @@ intents = discord.Intents.default()
 intents.members = True
 intents.presences = True
 client = commands.Bot(command_prefix=',,', intents=intents)
-autism = client.get_channel('560122060081463307')
+autism = client.get_channel(560122060081463307)
 @tasks.loop(seconds = 1)
 async def czarnuh():
     await autism.send('nigger')

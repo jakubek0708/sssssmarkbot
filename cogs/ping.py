@@ -5,7 +5,7 @@ class ping(commands.Cog):
         self.client = client
     @commands.command()
     async def ping(self, ctx):
-        await ctx.send('huj <a:forsenPls:612032287206408243> ! {0}'.format(round(self.client.latency, 1)))    
+        await ctx.send(f'huj <a:forsenPls:612032287206408243> = {self.client.latency}ms')    
         
 def setup(client):
     client.add_cog(ping(client))

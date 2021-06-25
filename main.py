@@ -1,6 +1,6 @@
 import discord
 from discord.ext import *
-from discord.ext import tasks, commands
+from discord.ext import commands
 import os
 from mcstatus import MinecraftServer
 from dotenv import load_dotenv
@@ -18,9 +18,6 @@ async def on_ready():
     autism = client.get_channel(560122060081463307)
 
 
-@tasks.loop(seconds = 1)
-async def czarnuh():
-    await autism.send('nigger')
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
@@ -70,6 +67,4 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 # smark tu był :tf://
 
-
-czarnuh.start()
 client.run(TOKEN)

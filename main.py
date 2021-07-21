@@ -65,6 +65,6 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 # ░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░░░░█░░
 # YOU'VE BEEN TROLLED
 
-# smark tu był :tf://
+# smark tu był :tf:///
 
 client.run(TOKEN)

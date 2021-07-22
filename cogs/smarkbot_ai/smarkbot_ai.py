@@ -1,13 +1,23 @@
-from discord.ext import commands
+from discord.ext import tasks, commands
 import discord 
 
+import asyncio 
+
+from chatterbot import ChatBot
+from chatterbot.trainers import ListTrainer
+
+
+chatbot = ChatBot('smarkbot ai')
+trainer = ListTrainer(chatbot)
+
+
 append_string = ""
-last_user_id = None
 
 class smarkbot_ai(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.ai_training_list = []
+
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -16,13 +26,16 @@ class smarkbot_ai(commands.Cog):
         global last_user_id
 
         if message.author.id in [390956680705474571, 293079974787678209]:
-            while message.author.id == last_user_id: 
-                append_string += message.content 
-            else:
-                self.ai_training_list.append(append_string)
-            
-            append_string = message.content
-            last_user_id = message.author.id 
+            self.ai_training_list.append(message.content)
+
+
+    @tasks.loop(minutes=2.5)
+    async def learner(self):
+        print("trying to learn")
+        trainer.train(self.ai_training_list)
+        print("learned something new :)))) hail hitler allah issalah slava ukrainie swine")
+        self.ai_training_list.clear()
+        print("deleted list information")
 
     @commands.command()
     async def show_list(self, ctx):

@@ -11,9 +11,10 @@ class smarkbot_ai(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        await self.client.process_commands(message)
         global append_string
         global last_user_id
-        
+
         if message.author.id in [390956680705474571, 293079974787678209]:
             while message.author.id == last_user_id: 
                 append_string += message.content 

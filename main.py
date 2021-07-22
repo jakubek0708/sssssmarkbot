@@ -23,6 +23,8 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
+client.load_extension('cogs.smarkbot_ai.smarkbot_ai')
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 

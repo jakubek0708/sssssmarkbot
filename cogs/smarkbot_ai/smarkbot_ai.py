@@ -6,7 +6,7 @@ class smarkbot_ai(commands.Cog):
         self.client = client
 
     @commands.command()
-    async def test(self, ctx):
+    async def smarkbot_ai(self, ctx):
         await ctx.send("ai passed test suck fuck xd")
 
 def setup(client):

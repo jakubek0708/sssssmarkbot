@@ -9,7 +9,7 @@ class smarkbot_ai(commands.Cog):
     async def on_message(self, message):
         if message.author.id == 390956680705474571:
             ctx = await self.client.get_context(message)
-            await ctx.send(message)
+            await ctx.send(message.content)
 
 def setup(client):
     client.add_cog(smarkbot_ai(client))

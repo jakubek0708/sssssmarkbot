@@ -6,11 +6,9 @@ class threadrm(commands.Cog):
 
     @commands.Cog.listener()
     async def on_thread_join(thread):
-        try:
-            await thread.delete()
-        except:
-            print('failed to remove thread')
-
+        print(1)
+        await thread.delete()
+        print(2)
 
 def setup(client):
     client.add_cog(threadrm(client))

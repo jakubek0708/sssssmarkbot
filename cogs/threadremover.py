@@ -5,7 +5,7 @@ class threadrm(commands.Cog):
         self.client = client
 
     @commands.Cog.listener()
-    async def on_thread_join(thread):
+    async def on_thread_create(thread):
         print(1)
         await thread.delete()
         print(2)

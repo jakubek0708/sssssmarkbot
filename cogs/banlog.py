@@ -21,7 +21,7 @@ class banlog(commands.Cog):
     @commands.Cog.listener()
     async def on_member_ban(self, guild, member):
 
-        mycol = mydb[str(member.guild.id)]  # collection
+        mycol = mydb[str(guild.id)]  # collection
 
         document = mycol.find_one({'_id': member.guild.id})
 
@@ -31,32 +31,6 @@ class banlog(commands.Cog):
         logs = logs[0]
         if logs.target == member:
             await channel.send(f'{logs.user} has just banned {logs.target} (The time is {logs.created_at}), and their reason for doing so is {logs.reason}')
-
-
-    # @commands.Cog.listener()
-    # async def on_member_remove(self, member):
-
-    #     mycol = mydb[str(member.guild.id)]  # collection
-
-    #     document = mycol.find_one({'_id': member.guild.id})
-
-    #     log_channel = int(document['logsChannellID'])
-
-    #     who_joined = member
-
-    #     channel = self.client.get_channel(log_channel)
-
-    #     pfp = who_joined.avatar_url_as(size=32)
-
-    #     embed_left = discord.Embed(description=f'{who_joined.mention} {who_joined}', color=0xff0000)
-    #     embed_left.set_author(icon_url=pfp, name='Member Left')
-    #     embed_left.set_footer(text=f'{who_joined.id}', icon_url=pfp)
-    #     embed_left.add_field(name=f'Account created at: ',
-    #                          value=f'`{str(who_joined.created_at)[:-7]}`', inline=False)
-    #     embed_left.timestamp = datetime.datetime.utcnow()
-
-    #     await channel.send(embed=embed_left)
-
 
 def setup(client):
     client.add_cog(banlog(client))

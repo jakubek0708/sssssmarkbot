@@ -12,7 +12,7 @@ class creditscore(commands.Cog):
             await ctx.send('错误')
         else: 
             print(content)
-            print(data, data[0], data[1])
+            print(data)
         
 
 def setup(client):

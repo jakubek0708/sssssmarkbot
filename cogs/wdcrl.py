@@ -10,6 +10,8 @@ class creditscore(commands.Cog):
         data = list(content.split(" "))
         if len(data) == 2:
             await ctx.send('错误')
+            print(content)
+            print(data)
         else: 
             print(content)
             print(data)

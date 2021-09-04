@@ -10,9 +10,9 @@ class creditscore(commands.Cog):
         data = list(content.split(" "))
         if len(data) == 2:
             try:
-                await ctx.message.server.get_member(data[0])
+                await ctx.message.server.get_member(data[0][3:-1])
             except: 
-                await ctx.send('错误')
+                await ctx.send('错误 kurwa')
         else: 
             await ctx.send('错误')
         

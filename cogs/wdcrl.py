@@ -9,12 +9,12 @@ class creditscore(commands.Cog):
     async def creditscore(self, ctx, *, content):
         data = list(content.split(" "))
         if len(data) == 2:
-            await ctx.send('错误')
-            print(content)
-            print(data)
+            try:
+                await ctx.message.server.get_member(data[0])
+            except: 
+                await ctx.send('错误')
         else: 
-            print(content)
-            print(data)
+            await ctx.send('错误')
         
 
 def setup(client):

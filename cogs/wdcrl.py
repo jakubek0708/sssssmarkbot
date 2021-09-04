@@ -14,5 +14,5 @@ class creditscore(commands.Cog):
             print(data, data[0], data[1])
         
 
-def creditscore(client):
+def setup(client):
     client.add_cog(creditscore(client))

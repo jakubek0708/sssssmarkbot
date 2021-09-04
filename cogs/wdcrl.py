@@ -11,6 +11,7 @@ class creditscore(commands.Cog):
         if len(data) == 2:
             await ctx.send('错误')
         else: 
+            print(content)
             print(data, data[0], data[1])
         
 

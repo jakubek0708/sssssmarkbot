@@ -68,4 +68,6 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 # smark tu był :tf:///
 
+# szuti tu był :DDDDD
+
 client.run(TOKEN)

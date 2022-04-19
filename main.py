@@ -2,7 +2,7 @@ import discord
 from discord.ext import *
 from discord.ext import commands
 import os
-from mcstatus import MinecraftServer
+# from mcstatus import MinecraftServer
 from dotenv import load_dotenv
 import datetime
 import asyncio

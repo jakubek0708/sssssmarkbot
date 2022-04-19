@@ -70,4 +70,4 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 # szuti tu był :DDDDD
 
-client.run(TOKEN)
+client.run(str(TOKEN))

@@ -7,3 +7,4 @@ python-dotenv==0.17.0
 ursina==3.6.0
 DateTime==4.3
 python-dateutil==2.7.5
+mcstatus==5.1.2
